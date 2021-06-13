@@ -1,0 +1,37 @@
+version: "3.9"
+
+services:
+  chickenfarm-api:
+    image: jacobapps/chickenfarm-api:dev
+    container_name: chickenfarm-api
+    ports:
+      - 80:80
+      
+  chickenfarm-api-dapr:
+    image: "daprio/daprd:latest"
+    command: [ "./daprd", "-app-id", "chickenfarm-api", "-app-port", "80" ]
+    network_mode: "service:chickenfarm-api"
+    depends_on:
+      - chickenfarm-api
+
+  chickenfarm-reporting-api:
+    image: jacobapps/chickenfarm-reporting-api:dev
+    container_name: chickenfarm-reporting-api
+    ports:
+      - 81:81
+
+  chickenfarm-reporting-api-dapr:
+    image: "daprio/daprd:latest"
+    command: [ "./daprd", "-app-id", "chickenfarm-reporting-api", "-app-port", "81" ]
+    network_mode: "service:chickenfarm-reporting-api"
+    depends_on:
+      - chickenfarm-reporting-api
+
+  chickenfarm-logging:
+    image: datalust/seq:latest
+      
+  chickenfarm-rabbitmq:
+    image: rabbitmq:3-management-alpine
+    
+  chickenfarm-zipkin:
+    image: openzipkin/zipkin-slim
