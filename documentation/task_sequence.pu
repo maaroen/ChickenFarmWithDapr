@@ -1,0 +1,24 @@
+@startuml
+
+actor		Employee as Employee
+participant	Api      as Api
+participant	TaskService as TaskService
+queue		Topic    as Topic
+'entity      entity      as Foo4
+'database    database    as Foo5
+'collections collections as Foo6
+'queue       queue       as Foo7
+
+Employee -> Api : Task details
+Api -> Topic : Queue for processing
+Topic -> TaskService : Process Task
+'Foo -> Foo2 : To boundary
+'Foo -> Foo3 : To control
+'Foo -> Foo4 : To entity
+'Foo -> Foo5 : To database
+'Foo -> Foo6 : To collections
+'Foo -> Foo7: To queue
+
+
+
+@enduml

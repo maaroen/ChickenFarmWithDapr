@@ -22,6 +22,17 @@ services:
     environment:
       - ASPNETCORE_URLS=http://0.0.0.0:81
       - PATH_BASE=/chickenfarm-reporting-api
+      
+  chickenfarm-tasks-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        PROJECT_FILE: src/ChickenFarm.Tasks.Api/ChickenFarm.Tasks.Api.csproj
+        PROJECT_DLL: ChickenFarm.Tasks.Api.dll
+    environment:
+      - ASPNETCORE_URLS=http://0.0.0.0:82
+      - PATH_BASE=/chickenfarm-tasks-api
    
   chickenfarm-logging:
     environment:

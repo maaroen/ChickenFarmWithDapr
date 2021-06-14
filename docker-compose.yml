@@ -41,6 +41,26 @@ services:
       - "./dapr/components/:/components"
       - "./dapr/configuration/:/configuration"
 
+  chickenfarm-tasks-api:
+    image: jacobapps/chickenfarm-tasks-api:dev
+    container_name: chickenfarm-tasks-api
+    ports:
+      - 82:82
+
+  chickenfarm-tasks-api-dapr:
+    image: "daprio/daprd:latest"
+    command: [ "./daprd",
+               "-app-id", "chickenfarm-tasks-api",
+               "-app-port", "82",
+               "-components-path", "/components",
+               "-config", "/configuration/config.yaml" ]
+    network_mode: "service:chickenfarm-tasks-api"
+    depends_on:
+      - chickenfarm-tasks-api
+    volumes:
+      - "./dapr/components/:/components"
+      - "./dapr/configuration/:/configuration"
+
   chickenfarm-logging:
     image: datalust/seq:latest
       

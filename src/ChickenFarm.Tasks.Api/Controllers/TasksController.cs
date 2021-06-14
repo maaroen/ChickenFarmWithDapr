@@ -5,7 +5,7 @@ using Dapr.Client;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace ChickenFarm.Reporting.Api.Controllers
+namespace ChickenFarm.Tasks.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
@@ -22,7 +22,7 @@ namespace ChickenFarm.Reporting.Api.Controllers
         [HttpPost("NewTaskPublished")]
         public async Task<IActionResult> Add(TaskDto task, [FromServices] DaprClient daprClient)
         {
-            _logger.LogInformation($"REPORTINGAPI: NEW TASK!: {task.Id}"); 
+            _logger.LogInformation($"TASKAPI: NEW TASK!: {task.Id}"); 
             return new OkObjectResult(task.Temperature);
         }
     }

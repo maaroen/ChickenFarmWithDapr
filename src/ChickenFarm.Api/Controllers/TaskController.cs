@@ -30,6 +30,7 @@ namespace ChickenFarm.Api.Controllers
         {
             try
             {
+                task.Id = Guid.NewGuid();
                 await daprClient.PublishEventAsync("pubsub", "tasks", task);
                 return Ok();
             }
