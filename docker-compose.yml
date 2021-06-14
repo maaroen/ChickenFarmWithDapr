@@ -9,10 +9,17 @@ services:
       
   chickenfarm-api-dapr:
     image: "daprio/daprd:latest"
-    command: [ "./daprd", "-app-id", "chickenfarm-api", "-app-port", "80" ]
+    command: [ "./daprd", 
+               "-app-id", "chickenfarm-api", 
+               "-app-port", "80", 
+               "-components-path", "/components",
+               "-config", "/configuration/chickenfarm-config.yaml"] 
     network_mode: "service:chickenfarm-api"
     depends_on:
       - chickenfarm-api
+    volumes:
+      - "./dapr/components/:/components"
+      - "./dapr/configuration/:/configuration"
 
   chickenfarm-reporting-api:
     image: jacobapps/chickenfarm-reporting-api:dev
@@ -22,16 +29,25 @@ services:
 
   chickenfarm-reporting-api-dapr:
     image: "daprio/daprd:latest"
-    command: [ "./daprd", "-app-id", "chickenfarm-reporting-api", "-app-port", "81" ]
+    command: [ "./daprd", 
+               "-app-id", "chickenfarm-reporting-api", 
+               "-app-port", "81", 
+               "-components-path", "/components",
+               "-config", "/configuration/chickenfarm-config.yaml"] 
     network_mode: "service:chickenfarm-reporting-api"
     depends_on:
       - chickenfarm-reporting-api
+    volumes:
+      - "./dapr/components/:/components"
+      - "./dapr/configuration/:/configuration"
 
   chickenfarm-logging:
     image: datalust/seq:latest
       
   chickenfarm-rabbitmq:
     image: rabbitmq:3-management-alpine
+    container_name: chickenfarm-rabbitmq
     
   chickenfarm-zipkin:
     image: openzipkin/zipkin-slim
+    container_name: chickenfarm-zipkin
