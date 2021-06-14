@@ -13,7 +13,7 @@ services:
                "-app-id", "chickenfarm-api", 
                "-app-port", "80", 
                "-components-path", "/components",
-               "-config", "/configuration/chickenfarm-config.yaml"] 
+               "-config", "/configuration/config.yaml"] 
     network_mode: "service:chickenfarm-api"
     depends_on:
       - chickenfarm-api
@@ -33,7 +33,7 @@ services:
                "-app-id", "chickenfarm-reporting-api", 
                "-app-port", "81", 
                "-components-path", "/components",
-               "-config", "/configuration/chickenfarm-config.yaml"] 
+               "-config", "/configuration/config.yaml"] 
     network_mode: "service:chickenfarm-reporting-api"
     depends_on:
       - chickenfarm-reporting-api

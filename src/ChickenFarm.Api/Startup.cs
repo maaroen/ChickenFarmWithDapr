@@ -55,13 +55,13 @@ namespace ChickenFarm.Api
                 loggerFactory.CreateLogger<Startup>().LogDebug("Using PATH BASE '{pathBase}'", pathBase);
                 app.UsePathBase(pathBase);
             }
-
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ChickenFarm.Api v1"));
 
             // app.UseHttpsRedirection();
 
             app.UseRouting();
+            app.UseCloudEvents();
 
             // app.UseAuthentication();
             // app.UseAuthorization();

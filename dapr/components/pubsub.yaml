@@ -4,11 +4,13 @@ metadata:
   name: pubsub
   namespace: default
 spec:
-  topic: tasks
-  route: /NewTaskPublished
-  pubsubname: pubsub
   type: pubsub.rabbitmq
   version: v1
   metadata:
   - name: host
     value: "amqp://root:root@chickenfarm-rabbitmq:5672"
+  - name: queueName
+    value: "tasks"
+  - name: deletedWhenUnused
+    value: "false"
+    

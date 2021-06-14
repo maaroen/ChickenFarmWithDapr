@@ -50,17 +50,21 @@ namespace ChickenFarm.Reporting.Api
                 loggerFactory.CreateLogger<Startup>().LogDebug("Using PATH BASE '{pathBase}'", pathBase);
                 app.UsePathBase(pathBase);
             }
-            
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ChickenFarm.Reporting.Api v1"));
 
             // app.UseHttpsRedirection();
 
             app.UseRouting();
+            app.UseCloudEvents();
 
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapSubscribeHandler();
+                endpoints.MapControllers();
+            });
         }
     }
 }
